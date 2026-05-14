@@ -33,6 +33,9 @@ const init = (httpServer) => {
   });
 
   // ─── Connection handling ───────────────────────────────────────────────────
+  // In-memory chat history: matchId → [{...msg}] (last 100 per match)
+  const chatHistory = {};
+
   io.on('connection', (socket) => {
     console.log(`[Socket] User ${socket.username} (${socket.userId}) connected`);
 
@@ -40,6 +43,11 @@ const init = (httpServer) => {
     socket.on('join_match', (matchId) => {
       socket.join(`match:${matchId}`);
       console.log(`[Socket] ${socket.username} joined match:${matchId}`);
+
+      // Send last 100 chat messages to the new joiner
+      if (chatHistory[matchId]?.length) {
+        socket.emit('chat_history', chatHistory[matchId]);
+      }
 
       // Tell the room someone joined (for active viewer count)
       io.to(`match:${matchId}`).emit('viewer_count', {
@@ -54,6 +62,28 @@ const init = (httpServer) => {
         matchId,
         count: getRoomSize(`match:${matchId}`),
       });
+    });
+
+    // ── Live Chat ──────────────────────────────────────────────────────────────
+    socket.on('chat_send', ({ matchId, text }) => {
+      if (!matchId || !text?.trim()) return;
+
+      const clean = text.trim().slice(0, 300); // cap length
+      const msg = {
+        id:       `${Date.now()}-${Math.random().toString(36).slice(2,7)}`,
+        userId:   socket.userId,
+        username: socket.username,
+        text:     clean,
+        ts:       new Date().toISOString(),
+      };
+
+      // Store in memory (keep last 100)
+      if (!chatHistory[matchId]) chatHistory[matchId] = [];
+      chatHistory[matchId].push(msg);
+      if (chatHistory[matchId].length > 100) chatHistory[matchId].shift();
+
+      // Broadcast to everyone in the match room (including sender)
+      io.to(`match:${matchId}`).emit('chat_message', msg);
     });
 
     socket.on('disconnect', () => {

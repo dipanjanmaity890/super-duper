@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 
 import ScoreBar         from '../components/ScoreBar';
 import Scorecard        from '../components/Scorecard';
+import LiveChat         from '../components/LiveChat';
 import Notification, { ToastStack } from '../components/Notification';
 import { MomentCard, PollWidget, PredictionWidget, ReactionBar } from '../components/Widgets';
 import { LiveStats, MomentumBar, FanFeed, Leaderboard }          from '../components/Panels';
@@ -19,8 +20,9 @@ import styles from './Match.module.css';
 const TABS = [
   { key: 'engage',    label: '⚡ Engage'    },
   { key: 'scorecard', label: '🏏 Scorecard' },
+  { key: 'chat',      label: '💬 Chat'      },
   { key: 'stats',     label: '📈 Stats'     },
-  { key: 'feed',      label: '💬 Feed'      },
+  { key: 'feed',      label: '📝 Feed'      },
   { key: 'timeline',  label: '📋 Timeline'  },
   { key: 'rankings',  label: '🏆 Rankings'  },
 ];
@@ -133,6 +135,12 @@ function MatchContent() {
           {tab === 'scorecard' && (
             <div className={styles.singleCol}>
               <Scorecard />
+            </div>
+          )}
+
+          {tab === 'chat' && (
+            <div className={styles.singleCol}>
+              <LiveChat />
             </div>
           )}
 

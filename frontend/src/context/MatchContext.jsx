@@ -134,6 +134,7 @@ export const MatchProvider = ({ matchId, children }) => {
       reactions, feed, leaderboard, myEntry,
       viewerCount, myMatchPts, notification, loading,
       crowdPulse, goalEvent,
+      socket: socketRef.current,
       votePoll, submitPrediction, addReaction, postFeed,
     }}>
       {children}
