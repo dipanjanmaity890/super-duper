@@ -1,0 +1,68 @@
+version: '3.9'
+
+services:
+  # ─── PostgreSQL ──────────────────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: fanpulse-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB:       fanpulse_db
+      POSTGRES_USER:     fanpulse
+      POSTGRES_PASSWORD: fanpulse
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/src/db/schema.sql:/docker-entrypoint-initdb.d/01_schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fanpulse -d fanpulse_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ─── Backend (Express + Socket.io) ───────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fanpulse-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      NODE_ENV:          development
+      PORT:              4000
+      DATABASE_URL:      postgresql://fanpulse:fanpulse@postgres:5432/fanpulse_db
+      JWT_SECRET:        change-me-in-production-please
+      JWT_EXPIRES_IN:    7d
+      CLIENT_URL:        http://localhost:5173
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./backend/src:/app/src
+      - /app/node_modules
+    command: npm run dev
+
+  # ─── Frontend (Vite React) ────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fanpulse-web
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:4000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+      - /app/node_modules
+    command: npm run dev -- --host
+
+volumes:
+  pgdata:

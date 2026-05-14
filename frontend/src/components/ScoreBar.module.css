@@ -1,0 +1,135 @@
+/* ── Base bar ─────────────────────────────────────────────── */
+.bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.25rem;
+  margin-bottom: 12px;
+  transition: border-color 0.4s, background 0.4s;
+  overflow: hidden;
+}
+
+/* Urgency bar variants */
+.bar_medium   { border-color: rgba(186,117,23,0.5); }
+.bar_high     { border-color: rgba(216,90,48,0.6); }
+.bar_critical {
+  border-color: var(--coral);
+  background: linear-gradient(135deg, var(--bg-card) 70%, rgba(216,90,48,0.08));
+  animation: criticalPulse 2s ease-in-out infinite;
+}
+@keyframes criticalPulse {
+  0%,100% { box-shadow: none; }
+  50%     { box-shadow: 0 0 0 2px rgba(216,90,48,0.25); }
+}
+
+/* ── Urgency banner ───────────────────────────────────────── */
+.urgencyBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.urgencyLabel { letter-spacing: 0.08em; }
+.urgencyMin   { font-weight: 500; opacity: 0.8; }
+
+.urgencyCritical {
+  background: rgba(216,90,48,0.2);
+  color: var(--coral-text);
+  border: 1px solid var(--coral);
+  animation: bannerFlash 1.5s ease-in-out infinite;
+}
+@keyframes bannerFlash { 0%,100%{opacity:1} 50%{opacity:0.7} }
+.urgencyHigh   { background: var(--amber-dim); color: var(--amber-text); border: 1px solid var(--amber); }
+.urgencyMedium { background: var(--blue-dim);  color: var(--blue-text);  border: 1px solid var(--blue);  }
+
+/* ── Competition row ──────────────────────────────────────── */
+.competition {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.viewers { font-size: 11px; color: var(--text-muted); }
+
+/* ── Team layout ──────────────────────────────────────────── */
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.team       { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 90px; }
+.teamRight  { align-items: flex-end; }
+.teamName   { font-size: 12px; color: var(--text-secondary); white-space: nowrap; }
+
+.badge {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.badge_teal   { background: var(--teal-dim);   color: var(--teal-text);   }
+.badge_coral  { background: var(--coral-dim);  color: var(--coral-text);  }
+.badge_blue   { background: var(--blue-dim);   color: var(--blue-text);   }
+.badge_purple { background: var(--purple-dim); color: var(--purple-text); }
+.badge_amber  { background: var(--amber-dim);  color: var(--amber-text);  }
+
+/* ── Score ────────────────────────────────────────────────── */
+.center {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 6px; flex: 1;
+}
+.score { display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+.scoreCritical { animation: scoreShake 0.5s ease; }
+@keyframes scoreShake {
+  0%,100%{ transform: translateX(0); }
+  25%    { transform: translateX(-3px); }
+  75%    { transform: translateX(3px);  }
+}
+
+.scoreNum {
+  font-size: 36px; font-weight: 800;
+  color: var(--text-primary); line-height: 1;
+  min-width: 30px; text-align: center;
+  transition: color 0.3s;
+}
+.scoreWinning { color: var(--teal-text); }
+.scoreSep     { font-size: 20px; color: var(--text-muted); line-height: 1; }
+
+/* ── Status ───────────────────────────────────────────────── */
+.statusRow  { display: flex; align-items: center; gap: 5px; }
+.liveDot {
+  width: 7px; height: 7px; background: var(--red);
+  border-radius: 50%; display: inline-block;
+  animation: blink 1.8s ease-in-out infinite;
+}
+.liveDotFast { animation-duration: 0.7s !important; background: var(--coral) !important; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+.liveLabel  { font-size: 12px; font-weight: 600; color: var(--red); letter-spacing: 0.5px; }
+.statusLabel { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+
+/* ── Time progress bar ────────────────────────────────────── */
+.progressTrack {
+  height: 3px; background: var(--bg-raised);
+  border-radius: 2px; margin-top: 14px; overflow: hidden;
+}
+.progressFill {
+  height: 100%; border-radius: 2px;
+  background: var(--teal);
+  transition: width 2s linear;
+}
+.progressFill_medium   { background: var(--amber); }
+.progressFill_high     { background: var(--coral); }
+.progressFill_critical {
+  background: var(--coral);
+  animation: progressPulse 0.8s ease-in-out infinite;
+}
+@keyframes progressPulse { 0%,100%{opacity:1} 50%{opacity:0.6} }

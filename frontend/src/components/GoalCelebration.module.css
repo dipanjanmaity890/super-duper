@@ -1,0 +1,99 @@
+/* ── Overlay ───────────────────────────────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.overlayOut { animation: fadeOut 0.35s ease forwards; }
+@keyframes fadeOut { to { opacity: 0; } }
+
+/* ── Confetti ──────────────────────────────────────────────────────────────── */
+.confetti {
+  position: absolute;
+  top: -10%;
+  animation: confettiFall linear forwards;
+}
+
+/* ── Card ──────────────────────────────────────────────────────────────────── */
+.card {
+  text-align: center;
+  padding: 2rem 2.5rem;
+  pointer-events: auto;
+  animation: goalPop 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.cardOut { animation: shrinkOut 0.3s ease forwards; }
+@keyframes shrinkOut { to { transform: scale(0.8); opacity: 0; } }
+
+/* ── Goal emoji ────────────────────────────────────────────────────────────── */
+.goalEmoji {
+  font-size: 88px;
+  line-height: 1;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 0 30px rgba(29, 158, 117, 0.9));
+  animation: spin 0.6s ease-out 0.1s;
+}
+@keyframes spin {
+  from { transform: rotate(-20deg) scale(0.5); }
+  to   { transform: rotate(0deg)   scale(1);   }
+}
+
+/* ── Text ──────────────────────────────────────────────────────────────────── */
+.goalLabel {
+  font-size: 56px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--teal-light);
+  text-shadow: 0 0 40px rgba(29, 158, 117, 0.8);
+  animation: goalGlow 0.8s ease-in-out infinite alternate;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.playerName {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.assist {
+  font-size: 14px;
+  color: var(--amber-text);
+  margin-bottom: 6px;
+}
+
+.desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  max-width: 280px;
+  margin: 0 auto 8px;
+}
+
+.minuteBadge {
+  display: inline-block;
+  background: var(--teal-dim);
+  color: var(--teal-text);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 4px 18px;
+  border-radius: 20px;
+  margin: 10px auto 0;
+  border: 1px solid var(--teal);
+}
+
+.dismiss {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 22px;
+  letter-spacing: 0.04em;
+}

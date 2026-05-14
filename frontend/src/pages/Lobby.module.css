@@ -1,0 +1,224 @@
+.page {
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: -0.5px;
+}
+
+.logoDot {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.logoAccent { color: var(--teal-light); }
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userPts {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--amber-text);
+}
+
+.adminLink {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--amber-text);
+  background: var(--amber-dim);
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  transition: background 0.15s;
+}
+.adminLink:hover { background: var(--bg-hover); }
+
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.heading {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.25rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.tab {
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+}
+
+.tab:hover { background: var(--bg-raised); color: var(--text-primary); }
+
+.tabActive {
+  background: var(--bg-raised);
+  border-color: var(--border-hi);
+  color: var(--text-primary);
+}
+
+.empty {
+  text-align: center;
+  padding: 4rem 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 14px;
+}
+
+.matchCard {
+  display: block;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.matchCard:hover {
+  border-color: var(--border-hi);
+  transform: translateY(-2px);
+}
+
+.matchTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.comp {
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.viewers {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.liveDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 4px;
+  animation: pulse 2s infinite;
+}
+
+.teams {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.teamBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  flex: 1;
+}
+
+.teamRight { align-items: flex-end; }
+
+.teamBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.team_teal   { background: var(--teal-dim);   color: var(--teal-text);   }
+.team_coral  { background: var(--coral-dim);  color: var(--coral-text);  }
+.team_blue   { background: var(--blue-dim);   color: var(--blue-text);   }
+.team_purple { background: var(--purple-dim); color: var(--purple-text); }
+.team_amber  { background: var(--amber-dim);  color: var(--amber-text);  }
+
+.teamName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.scoreBlock {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.scoreText {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
+
+.kickoffTime {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.venue {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.cta {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--teal-text);
+  text-align: right;
+}

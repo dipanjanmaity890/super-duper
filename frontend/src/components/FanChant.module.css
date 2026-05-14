@@ -1,0 +1,104 @@
+.widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.count { display: flex; flex-direction: column; }
+.countNum  { font-size: 22px; font-weight: 800; color: var(--text-primary); line-height: 1; }
+.countLabel { font-size: 11px; color: var(--text-muted); }
+
+.sides { display: flex; gap: 6px; }
+.sideBtn {
+  padding: 5px 14px;
+  border-radius: var(--radius-md);
+  font-size: 12px; font-weight: 700;
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  cursor: pointer; transition: all 0.15s;
+}
+.sideBtn:hover  { border-color: var(--border-hi); }
+.sideBtnActive  { background: var(--bg-hover) !important; }
+
+/* ── Big Chant Button ─────────────────────────────────────── */
+.chantBtn {
+  width: 100%;
+  padding: 22px 0;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--teal-dim), rgba(29,158,117,0.25));
+  border: 2px solid var(--teal);
+  color: var(--teal-text);
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.1s;
+  animation: chantPulse 2.2s ease-in-out infinite;
+}
+.chantBtn:hover { background: linear-gradient(135deg, rgba(29,158,117,0.3), rgba(29,158,117,0.4)); }
+.chantBtnPressed {
+  animation: tapBounce 0.4s ease forwards !important;
+  background: linear-gradient(135deg, rgba(29,158,117,0.5), rgba(29,158,117,0.6)) !important;
+}
+
+.chantIcon { font-size: 36px; line-height: 1; }
+.chantText {
+  font-size: 16px; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.chantCount {
+  position: absolute;
+  top: 8px; right: 12px;
+  font-size: 13px; font-weight: 700;
+  color: var(--amber-text);
+  background: var(--amber-dim);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ── Status ──────────────────────────────────────────────── */
+.statusRow { text-align: center; min-height: 20px; }
+.statusMsg  { font-size: 13px; font-weight: 600; color: var(--teal-text); }
+.statusHint { font-size: 12px; color: var(--text-muted); }
+
+/* ── Split Bar ───────────────────────────────────────────── */
+.splitBar {
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  display: flex;
+  background: var(--bg-raised);
+}
+.splitHome {
+  height: 100%;
+  background: var(--teal);
+  border-radius: 3px 0 0 3px;
+  transition: width 0.5s ease;
+}
+.splitAway {
+  height: 100%;
+  background: var(--coral);
+  border-radius: 0 3px 3px 0;
+  transition: width 0.5s ease;
+}
+.splitLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  font-weight: 600;
+}

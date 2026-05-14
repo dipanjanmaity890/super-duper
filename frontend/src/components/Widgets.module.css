@@ -1,0 +1,194 @@
+/* ─── Shared widget shell ───────────────────────────────────────────────────── */
+.widget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ── Widget header ────────────────────────────────────────── */
+.widgetHeader {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.widgetIcon  { font-size: 15px; }
+.widgetTitle {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--text-muted); flex: 1;
+}
+.livePill {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+  padding: 2px 8px; border-radius: 20px;
+  background: rgba(216,90,48,0.15); color: var(--coral-text);
+  display: flex; align-items: center; gap: 4px;
+}
+.livePillAmber { background: var(--amber-dim); color: var(--amber-text); }
+.liveDot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--coral); animation: pulse 1.5s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+.question {
+  font-size: 14px; font-weight: 600; color: var(--text-primary);
+  line-height: 1.4;
+}
+
+/* ─── Poll ───────────────────────────────────────────────────────────────────── */
+.pollOptions { display: flex; flex-direction: column; gap: 7px; }
+
+.pollOption {
+  position: relative; overflow: hidden;
+  width: 100%; text-align: left;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  cursor: pointer; transition: border-color 0.15s, transform 0.1s;
+}
+.pollOption:hover:not(:disabled) { border-color: var(--border-hi); transform: translateY(-1px); }
+.pollOption:active:not(:disabled) { transform: translateY(0); }
+
+.pollBar {
+  position: absolute; inset: 0;
+  background: var(--teal-dim);
+  border-radius: var(--radius-md);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+.pollBarSelected { background: rgba(29,158,117,0.28); }
+
+.pollRow { position: relative; display: flex; justify-content: space-between; align-items: center; }
+.pollText { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+.pollPct  { font-size: 13px; font-weight: 700; color: var(--teal-text); min-width: 36px; text-align: right; }
+
+.pollSelected { border-color: var(--teal) !important; }
+.pollVoted    { cursor: not-allowed; }
+.pollLeading  { border-color: var(--amber) !important; }
+.leadingBadge {
+  position: absolute; bottom: -1px; right: 8px;
+  font-size: 10px; color: var(--amber-text);
+  background: var(--amber-dim); padding: 1px 7px; border-radius: 4px 4px 0 0;
+}
+
+.pollMeta {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--text-muted);
+}
+.ptsTag {
+  font-size: 11px; font-weight: 700;
+  background: var(--amber-dim); color: var(--amber-text);
+  padding: 2px 8px; border-radius: 20px;
+}
+.votedConfirm {
+  font-size: 12px; color: var(--teal-text);
+  background: var(--teal-dim); border: 1px solid var(--teal);
+  border-radius: var(--radius-md); padding: 8px 12px;
+  text-align: center; animation: toastSlide 0.25s ease;
+}
+
+/* ─── Prediction ─────────────────────────────────────────────────────────────── */
+.predOptions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+.predBtn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 6px; padding: 16px 10px;
+  border-radius: var(--radius-lg); border: 2px solid transparent;
+  cursor: pointer; transition: all 0.15s; font-family: inherit;
+}
+.predBtn:active:not(:disabled) { transform: scale(0.96); }
+
+.predBtn_teal  { background: var(--teal-dim);  color: var(--teal-text);  }
+.predBtn_coral { background: var(--coral-dim); color: var(--coral-text); }
+.predBtn_teal:hover:not(:disabled)  { border-color: var(--teal);  background: rgba(29,158,117,0.22); }
+.predBtn_coral:hover:not(:disabled) { border-color: var(--coral); background: rgba(216,90,48,0.22);  }
+
+.predSelected { border-color: currentColor !important; transform: scale(1.03); }
+.predDone     { opacity: 0.7; cursor: not-allowed; }
+.predLabel    { font-size: 15px; font-weight: 700; }
+.predPts      { font-size: 10px; opacity: 0.75; font-weight: 500; }
+.predConfirm  {
+  font-size: 12px; color: var(--amber-text);
+  background: var(--amber-dim); border: 1px solid var(--amber);
+  border-radius: var(--radius-md); padding: 8px 12px; text-align: center;
+}
+
+/* ─── Reaction Bar ───────────────────────────────────────────────────────────── */
+.momentLabel {
+  font-size: 12px; color: var(--text-secondary); line-height: 1.4;
+  background: var(--bg-raised); border-radius: var(--radius-md);
+  padding: 7px 10px; display: flex; align-items: center; gap: 5px;
+}
+.totalReactions { font-size: 11px; color: var(--text-muted); margin-left: auto; }
+
+.reactionRow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+
+.reactBtn {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 3px; padding: 10px 4px;
+  border-radius: var(--radius-md); border: 1px solid var(--border);
+  background: var(--bg-raised); cursor: pointer;
+  transition: all 0.12s; font-family: inherit;
+  position: relative;
+}
+.reactBtn:hover { background: var(--bg-hover); border-color: var(--border-hi); transform: translateY(-2px); }
+.reactFired {
+  animation: tapBounce 0.4s ease forwards;
+  background: var(--amber-dim) !important;
+  border-color: var(--amber) !important;
+}
+
+.reactEmoji { font-size: 22px; }
+.reactLabel { font-size: 9px; color: var(--text-muted); font-weight: 500; }
+.reactCount {
+  font-size: 11px; font-weight: 700; color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.reactCountBump { color: var(--amber-text) !important; }
+
+/* ─── Moment Card ────────────────────────────────────────────────────────────── */
+.momentCard {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 14px;
+  border-radius: var(--radius-lg); border: 1px solid transparent;
+  position: relative; overflow: hidden;
+  transition: all 0.3s;
+}
+.momentGoal { animation: none; }
+.momentGoal::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(29,158,117,0.07), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0%,100% { transform: translateX(-100%); }
+  50%      { transform: translateX(100%);  }
+}
+
+.moment_teal   { background: var(--teal-dim);   border-color: var(--teal);   }
+.moment_coral  { background: var(--coral-dim);  border-color: var(--coral);  }
+.moment_amber  { background: var(--amber-dim);  border-color: var(--amber);  }
+.moment_blue   { background: var(--blue-dim);   border-color: var(--blue);   }
+.moment_purple { background: var(--purple-dim); border-color: var(--purple); }
+
+.momentEmoji { font-size: 28px; flex-shrink: 0; }
+.momentBody  { flex: 1; }
+.momentTitle {
+  font-size: 14px; font-weight: 700; color: var(--text-primary);
+  line-height: 1.35;
+}
+.momentMinute { font-size: 12px; font-weight: 600; color: var(--amber-text); }
+.momentDesc   { font-size: 12px; color: var(--text-secondary); margin-top: 3px; line-height: 1.4; }
+.momentAssist { font-size: 11px; color: var(--teal-text); margin-top: 2px; }
+
+.keyBadge {
+  font-size: 9px; font-weight: 800; letter-spacing: 0.06em;
+  color: var(--amber-text); background: var(--amber-dim);
+  border: 1px solid var(--amber); padding: 2px 7px; border-radius: 4px;
+  align-self: flex-start; flex-shrink: 0;
+}
