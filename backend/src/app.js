@@ -3,6 +3,9 @@ const express     = require('express');
 const cors        = require('cors');
 const helmet      = require('helmet');
 const rateLimit   = require('express-rate-limit');
+const swaggerUi   = require('swagger-ui-express');
+const YAML        = require('yamljs');
+const path        = require('path');
 
 const authRoutes  = require('./routes/auth');
 const matchRoutes = require('./routes/matches');
@@ -44,6 +47,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 app.get('/health', (_req, res) => res.json({ status: 'ok', timestamp: new Date() }));
+
+// ─── API Documentation (Swagger) ──────────────────────────────────────────────
+const swaggerDocument = YAML.load(path.join(__dirname, 'swagger.yaml'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {
+  customSiteTitle: "FanPulse API Docs"
+}));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 app.use('/api/auth',        authLimiter, authRoutes);

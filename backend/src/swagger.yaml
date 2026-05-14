@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: FanPulse API
+  description: Backend API for the FanPulse live cricket engagement platform.
+  version: 1.0.0
+servers:
+  - url: https://fanpulse-api-relengxclq-el.a.run.app/api
+    description: Production Server
+  - url: http://localhost:5001/api
+    description: Local Development Server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []
+paths:
+  /auth/me:
+    get:
+      summary: Get current user profile
+      tags: [Auth]
+      responses:
+        '200':
+          description: User profile data
+  /matches:
+    get:
+      summary: List all matches
+      tags: [Matches]
+      security: []
+      responses:
+        '200':
+          description: Array of matches
+  /matches/{id}:
+    get:
+      summary: Get match details
+      tags: [Matches]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Detailed match data
+  /cricket/points-table:
+    get:
+      summary: Get IPL points table
+      tags: [Cricket API]
+      security: []
+      responses:
+        '200':
+          description: Current IPL standings
+  /ai/commentary/{id}:
+    get:
+      summary: Generate AI Commentary
+      tags: [AI Features]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Returns Gemini AI generated commentary based on live scorecard.
+  /ai/winprob/{id}:
+    get:
+      summary: Get AI Win Probability
+      tags: [AI Features]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Returns Gemini AI win probability percentages and reasoning.
