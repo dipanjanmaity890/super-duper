@@ -81,12 +81,16 @@
 .badge_purple { background: var(--purple-dim); color: var(--purple-text); }
 .badge_amber  { background: var(--amber-dim);  color: var(--amber-text);  }
 
+.venue { color: var(--text-muted); }
+
 /* ── Score ────────────────────────────────────────────────── */
 .center {
   display: flex; flex-direction: column;
   align-items: center; gap: 6px; flex: 1;
 }
-.score { display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+.score        { display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+.cricScoreWrap { display: flex; align-items: center; justify-content: center; }
+.cricScore    { display: flex; align-items: center; gap: 8px; transition: all 0.3s; }
 .scoreCritical { animation: scoreShake 0.5s ease; }
 @keyframes scoreShake {
   0%,100%{ transform: translateX(0); }
@@ -101,7 +105,8 @@
   transition: color 0.3s;
 }
 .scoreWinning { color: var(--teal-text); }
-.scoreSep     { font-size: 20px; color: var(--text-muted); line-height: 1; }
+.scoreSep     { font-size: 14px; color: var(--text-muted); line-height: 1; font-weight: 500; padding: 0 4px; }
+.wickets      { font-size: 18px; color: var(--text-muted); font-weight: 600; }
 
 /* ── Status ───────────────────────────────────────────────── */
 .statusRow  { display: flex; align-items: center; gap: 5px; }
