@@ -14,9 +14,22 @@
   background: rgba(0, 210, 200, 0.05);
 }
 .headerLeft { display: flex; align-items: center; gap: 10px; }
+.headerRight { display: flex; align-items: center; gap: 8px; }
 .aiIcon     { font-size: 28px; filter: drop-shadow(0 0 8px rgba(0,210,200,0.5)); }
 .title      { font-size: 14px; font-weight: 700; color: #fff; }
 .subtitle   { font-size: 10px; color: rgba(0,210,200,0.7); letter-spacing: 0.05em; }
+
+.actionBtn {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; border-radius: 20px; padding: 4px 10px; font-size: 11px;
+  font-weight: 600; cursor: pointer; transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+.actionBtn:hover { background: rgba(255,255,255,0.1); }
+.actionBtnActive {
+  background: var(--teal-dim); border-color: var(--teal); color: var(--teal-text);
+  box-shadow: 0 0 8px rgba(0,210,200,0.4);
+}
 
 .refreshBtn {
   width: 32px; height: 32px; border-radius: 50%;

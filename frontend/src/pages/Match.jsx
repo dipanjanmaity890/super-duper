@@ -9,6 +9,7 @@ import LiveChat         from '../components/LiveChat';
 import AICommentary     from '../components/AICommentary';
 import Notification, { ToastStack } from '../components/Notification';
 import { MomentCard, PollWidget, PredictionWidget, ReactionBar } from '../components/Widgets';
+import FantasyWidget from '../components/FantasyWidget';
 import { LiveStats, MomentumBar, FanFeed, Leaderboard }          from '../components/Panels';
 import EventTimeline    from '../components/EventTimeline';
 import CrowdPulse       from '../components/CrowdPulse';
@@ -105,6 +106,7 @@ function MatchContent() {
             <div className={styles.engageGrid}>
               <div className={styles.engageMain}>
                 <AICommentary />
+                <FantasyWidget />
                 <WinProbChart />
                 <MomentCard />
                 <StatWhisper />
