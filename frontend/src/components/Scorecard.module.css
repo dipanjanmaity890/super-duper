@@ -1,0 +1,120 @@
+/* ── Wrapper ────────────────────────────────────────────────── */
+.wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  background: var(--bg-raised);
+}
+.title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.refreshBtn {
+  font-size: 16px; color: var(--text-muted); background: none;
+  border: none; cursor: pointer; transition: color 0.15s;
+  padding: 2px 6px; border-radius: 6px;
+}
+.refreshBtn:hover { color: var(--teal-text); background: var(--teal-dim); }
+
+/* ── Loading / Error ────────────────────────────────────────── */
+.loading {
+  display: flex; align-items: center; gap: 10px;
+  padding: 2rem; color: var(--text-muted); font-size: 13px; justify-content: center;
+}
+.spinner {
+  width: 16px; height: 16px; border: 2px solid var(--border);
+  border-top-color: var(--teal); border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.error  { padding: 1rem; color: var(--coral-text); font-size: 13px; text-align: center; }
+.noData {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 8px; padding: 2.5rem; color: var(--text-muted); font-size: 13px;
+}
+.noData span { font-size: 32px; }
+
+/* ── Inning tabs ────────────────────────────────────────────── */
+.inningTabs { display: flex; border-bottom: 1px solid var(--border); }
+.inningTab {
+  flex: 1; padding: 10px 12px; font-size: 12px; font-weight: 600;
+  color: var(--text-muted); background: none; border: none; cursor: pointer;
+  border-bottom: 2px solid transparent; transition: all 0.15s;
+}
+.inningTab:hover { color: var(--text-primary); background: var(--bg-raised); }
+.inningTabActive { color: var(--teal-text); border-bottom-color: var(--teal); }
+.inningScore { font-size: 11px; font-weight: 500; opacity: 0.8; }
+
+/* ── Score summary ──────────────────────────────────────────── */
+.scoreSummary {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: linear-gradient(135deg, var(--bg-raised), var(--bg-card));
+  border-bottom: 1px solid var(--border);
+}
+.inningName { font-size: 12px; color: var(--text-muted); }
+.totalScore { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+.overs      { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+
+/* ── Last 6 balls ───────────────────────────────────────────── */
+.lastBalls {
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 16px; border-bottom: 1px solid var(--border);
+  background: var(--bg-raised);
+}
+.lastBallsLabel { font-size: 11px; color: var(--text-muted); margin-right: 4px; }
+.ball {
+  width: 26px; height: 26px; border-radius: 50%; display: flex;
+  align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800;
+}
+.ballW      { background: var(--coral-dim);  color: var(--coral-text);  border: 1px solid var(--coral); }
+.ball6      { background: var(--amber-dim);  color: var(--amber-text);  border: 1px solid var(--amber); }
+.ball4      { background: var(--blue-dim);   color: var(--blue-text);   border: 1px solid var(--blue);  }
+.ball0      { background: var(--bg-raised);  color: var(--text-muted);  border: 1px solid var(--border);}
+.ballNormal { background: var(--teal-dim);   color: var(--teal-text);   border: 1px solid var(--teal);  }
+
+/* ── Table sections ─────────────────────────────────────────── */
+.tableSection { padding: 0; }
+.tableTitle {
+  padding: 10px 16px 6px; font-size: 12px; font-weight: 700;
+  color: var(--text-secondary); letter-spacing: 0.05em; background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+}
+.table { width: 100%; }
+
+.row {
+  display: grid;
+  grid-template-columns: 1.8fr 2fr repeat(5, 0.6fr);
+  padding: 8px 16px; font-size: 12px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.1s;
+  align-items: center;
+}
+.row:last-child { border-bottom: none; }
+.row:hover:not(.rowHeader) { background: var(--bg-raised); }
+
+.rowHeader { 
+  font-size: 10px; font-weight: 700; color: var(--text-muted);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  background: var(--bg-raised); padding: 6px 16px;
+}
+.rowOut    { opacity: 0.7; }
+.rowNotOut { background: rgba(0, 210, 200, 0.03); }
+
+.colBatsman  { color: var(--text-primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.colBowler   { color: var(--text-primary); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.colDismissal{ color: var(--text-muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.colNum      { text-align: center; color: var(--text-secondary); font-weight: 500; }
+
+.runs    { color: var(--text-primary); font-weight: 800; font-size: 14px; }
+.sixes   { color: var(--amber-text); font-weight: 700; }
+.wickets { color: var(--coral-text); font-weight: 800; font-size: 14px; }
+.notOut  { color: var(--teal-text); }
+
+/* Bowling table uses different grid */
+.tableSection:last-child .row {
+  grid-template-columns: 2fr repeat(5, 0.7fr);
+}

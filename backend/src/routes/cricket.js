@@ -37,4 +37,31 @@ router.post('/sync/:id', authenticate, requireAdmin, async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+/** GET /cricket/points-table – IPL 2026 standings */
+router.get('/points-table', async (req, res, next) => {
+  try {
+    const SERIES_ID = '87c62aac-bc3c-4738-ab93-19da0690488f';
+    const API_KEY   = process.env.CRICKET_API_KEY;
+    const url       = `https://api.cricapi.com/v1/series_points?apikey=${API_KEY}&id=${SERIES_ID}`;
+    const resp      = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    const data      = await resp.json();
+
+    if (data.status !== 'success') {
+      return res.status(502).json({ error: 'CricAPI error', detail: data.status });
+    }
+
+    // Normalize to consistent shape
+    const table = (data.data || []).map(row => ({
+      teamName:      row.team || row.teamName || '?',
+      matchesPlayed: row.matchesPlayed ?? row.p ?? 0,
+      win:           row.win ?? row.w ?? 0,
+      loss:          row.loss ?? row.l ?? 0,
+      nrr:           row.nrr ?? row.NRR ?? '0.000',
+      points:        row.points ?? row.pt ?? 0,
+    })).sort((a, b) => b.points - a.points || Number(b.nrr) - Number(a.nrr));
+
+    res.json({ table, updatedAt: new Date().toISOString() });
+  } catch (err) { next(err); }
+});
+
 module.exports = router;

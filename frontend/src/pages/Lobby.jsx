@@ -66,6 +66,7 @@ export default function LobbyPage() {
           <span className={styles.logoTag}>🏏 IPL 2026</span>
         </div>
         <div className={styles.userRow}>
+          <Link to="/points-table" className={styles.pointsTableLink}>🏆 Table</Link>
           <span className={styles.userPts}>⭐ {user?.total_points?.toLocaleString() || 0} pts</span>
           <div className={`avatar avatar-${user?.avatar_color || 'teal'}`} style={{ width: 32, height: 32 }}>
             {user?.avatar_initials || '??'}

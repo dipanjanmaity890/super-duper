@@ -4,6 +4,7 @@ import { MatchProvider, useMatch } from '../context/MatchContext';
 import { useAuth } from '../context/AuthContext';
 
 import ScoreBar         from '../components/ScoreBar';
+import Scorecard        from '../components/Scorecard';
 import Notification, { ToastStack } from '../components/Notification';
 import { MomentCard, PollWidget, PredictionWidget, ReactionBar } from '../components/Widgets';
 import { LiveStats, MomentumBar, FanFeed, Leaderboard }          from '../components/Panels';
@@ -16,11 +17,12 @@ import StatWhisper      from '../components/StatWhisper';
 import styles from './Match.module.css';
 
 const TABS = [
-  { key: 'engage',   label: '⚡ Engage'   },
-  { key: 'stats',    label: '📈 Stats'    },
-  { key: 'feed',     label: '💬 Feed'     },
-  { key: 'timeline', label: '📋 Timeline' },
-  { key: 'rankings', label: '🏆 Rankings' },
+  { key: 'engage',    label: '⚡ Engage'    },
+  { key: 'scorecard', label: '🏏 Scorecard' },
+  { key: 'stats',     label: '📈 Stats'     },
+  { key: 'feed',      label: '💬 Feed'      },
+  { key: 'timeline',  label: '📋 Timeline'  },
+  { key: 'rankings',  label: '🏆 Rankings'  },
 ];
 
 function MatchContent() {
@@ -125,6 +127,12 @@ function MatchContent() {
           {tab === 'feed' && (
             <div className={styles.singleCol}>
               <FanFeed />
+            </div>
+          )}
+
+          {tab === 'scorecard' && (
+            <div className={styles.singleCol}>
+              <Scorecard />
             </div>
           )}
 
