@@ -10,6 +10,7 @@ const pollRoutes    = require('./routes/polls');
 const teamRoutes    = require('./routes/teams');
 const cricketRoutes = require('./routes/cricket');
 const demoRoutes    = require('./routes/demo');
+const aiRoutes      = require('./routes/ai');
 const { predictions: predRoutes, engagement: engRoutes } = require('./routes/engagement');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
 
@@ -51,6 +52,7 @@ app.use('/api/polls',       apiLimiter,  pollRoutes);
 app.use('/api/teams',       apiLimiter,  teamRoutes);
 app.use('/api/predictions', apiLimiter,  predRoutes);
 app.use('/api/cricket',     apiLimiter,  cricketRoutes);
+app.use('/api/ai',          apiLimiter,  aiRoutes);
 app.use('/api/demo',        apiLimiter,  demoRoutes);
 app.use('/api',             apiLimiter,  engRoutes);
 

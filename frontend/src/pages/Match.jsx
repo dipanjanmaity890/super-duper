@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import ScoreBar         from '../components/ScoreBar';
 import Scorecard        from '../components/Scorecard';
 import LiveChat         from '../components/LiveChat';
+import AICommentary     from '../components/AICommentary';
 import Notification, { ToastStack } from '../components/Notification';
 import { MomentCard, PollWidget, PredictionWidget, ReactionBar } from '../components/Widgets';
 import { LiveStats, MomentumBar, FanFeed, Leaderboard }          from '../components/Panels';
@@ -103,6 +104,7 @@ function MatchContent() {
           {tab === 'engage' && (
             <div className={styles.engageGrid}>
               <div className={styles.engageMain}>
+                <AICommentary />
                 <WinProbChart />
                 <MomentCard />
                 <StatWhisper />
