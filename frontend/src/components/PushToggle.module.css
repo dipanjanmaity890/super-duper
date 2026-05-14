@@ -1,0 +1,18 @@
+.card {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 16px; margin-bottom: 1rem;
+}
+.info { display: flex; align-items: center; gap: 14px; }
+.icon { font-size: 24px; }
+.title { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 3px; }
+.desc { font-size: 11px; color: var(--text-muted); }
+
+.btn {
+  background: var(--teal); color: #fff; border: none;
+  border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 0.2s;
+}
+.btn:hover:not(:disabled) { transform: scale(1.05); }
+.active { background: var(--bg-raised); color: var(--teal-text); border: 1px solid var(--teal); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }

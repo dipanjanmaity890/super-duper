@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import PushToggle from '../components/PushToggle';
 import styles from './Profile.module.css';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
@@ -121,6 +122,12 @@ export default function ProfilePage() {
               );
             })}
           </div>
+        </div>
+
+        {/* Notifications */}
+        <div className={styles.section}>
+          <h2 className={styles.sectionTitle}>⚙️ Settings</h2>
+          <PushToggle />
         </div>
 
         {/* Quick actions */}
