@@ -92,7 +92,7 @@ const firebaseAuth = async (req, res, next) => {
     // Upsert: find or create user by firebase_uid (stored in metadata JSON)
     const { rows: existing } = await query(
       `SELECT id, username, email, avatar_initials, avatar_color,
-              total_points, is_admin, total_correct
+              total_points, streak_count, is_admin
        FROM users WHERE email = $1`,
       [email]
     );
@@ -108,7 +108,7 @@ const firebaseAuth = async (req, res, next) => {
         `INSERT INTO users
            (username, email, password_hash, avatar_initials, avatar_color)
          VALUES ($1, $2, $3, $4, $5)
-         RETURNING id, username, email, avatar_initials, avatar_color, total_points, is_admin, total_correct`,
+         RETURNING id, username, email, avatar_initials, avatar_color, total_points, streak_count, is_admin`,
         [rawUsername, email, `firebase:${uid}`, avatarInitials, avatarColor]
       );
       user = created;
