@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "site": "fanpulse-live-match",
+    "site": "fanpulse-app-live",
     "public": "dist",
     "ignore": [
       "firebase.json",

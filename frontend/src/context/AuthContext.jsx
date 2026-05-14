@@ -1,7 +1,22 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { authAPI } from '../services/api';
+import { signInWithGoogle, firebaseSignOut } from '../services/firebase';
 
 const AuthContext = createContext(null);
+
+const API_BASE = import.meta.env.VITE_API_URL || '';
+
+// Firebase token → our backend → get our JWT + user
+async function exchangeFirebaseToken(idToken) {
+  const res = await fetch(`${API_BASE}/api/auth/firebase`, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ idToken }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Firebase auth failed');
+  return data; // { token, user }
+}
 
 export const AuthProvider = ({ children }) => {
   const [user,    setUser]    = useState(null);
@@ -18,6 +33,7 @@ export const AuthProvider = ({ children }) => {
       .finally(() => setLoading(false));
   }, []);
 
+  // ─── Email / password ───────────────────────────────────────────────────────
   const login = useCallback(async (email, password) => {
     const { token, user } = await authAPI.login({ email, password });
     localStorage.setItem('fp_token', token);
@@ -32,9 +48,20 @@ export const AuthProvider = ({ children }) => {
     return user;
   }, []);
 
-  const logout = useCallback(() => {
+  // ─── Google Sign-In (Firebase) ──────────────────────────────────────────────
+  const loginWithGoogle = useCallback(async () => {
+    const { idToken } = await signInWithGoogle();         // Google popup
+    const { token, user } = await exchangeFirebaseToken(idToken); // → our backend
+    localStorage.setItem('fp_token', token);
+    setUser(user);
+    return user;
+  }, []);
+
+  // ─── Logout ────────────────────────────────────────────────────────────────
+  const logout = useCallback(async () => {
     localStorage.removeItem('fp_token');
     setUser(null);
+    try { await firebaseSignOut(); } catch {} // also sign out of Firebase
   }, []);
 
   const updatePoints = useCallback((newTotal) => {
@@ -42,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updatePoints }}>
+    <AuthContext.Provider value={{ user, loading, login, register, loginWithGoogle, logout, updatePoints }}>
       {children}
     </AuthContext.Provider>
   );
