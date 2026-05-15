@@ -55,17 +55,23 @@ DO NOT use markdown. Plain text only.`;
 
 // ── Main commentary generator ────────────────────────────────────────────────
 async function generateCommentary(match, scorecard) {
-  const model  = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
-  const prompt = buildPrompt(match, scorecard);
+  try {
+    const model  = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const prompt = buildPrompt(match, scorecard);
 
-  const result = await model.generateContent(prompt);
-  return result.response.text().trim();
+    const result = await model.generateContent(prompt);
+    return result.response.text().trim();
+  } catch (err) {
+    console.error('Gemini API Error (Commentary):', err.message);
+    if (err.message.includes('429') || err.message.includes('quota')) {
+      return "The stadium is buzzing! 🏏 (AI Analyst is taking a quick breather due to high demand. Check back in a minute!)";
+    }
+    throw err;
+  }
 }
 
 // ── Win probability calculator ───────────────────────────────────────────────
 async function generateWinProbability(match, scorecard) {
-  const model = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
-
   const scores = scorecard?.score || [];
   const inn1   = scores[0] || {};
   const inn2   = scores[1] || {};
@@ -80,11 +86,17 @@ Respond ONLY with a JSON object, no markdown:
 {"homeWinPct": <0-100>, "awayWinPct": <0-100>, "reason": "<10 words max>"}`;
 
   try {
+    const model = getGenAI().getGenerativeModel({ model: 'gemini-2.0-flash' });
     const result = await model.generateContent(prompt);
     const text   = result.response.text().trim().replace(/```json|```/g, '');
     return JSON.parse(text);
-  } catch {
-    return { homeWinPct: 50, awayWinPct: 50, reason: 'Match in balance' };
+  } catch (err) {
+    console.error('Gemini API Error (WinProb):', err.message);
+    return { 
+      homeWinPct: 50, 
+      awayWinPct: 50, 
+      reason: err.message.includes('429') ? 'AI Analyst rate limited ⏳' : 'Match in balance ⚖️' 
+    };
   }
 }
 
